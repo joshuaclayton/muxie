@@ -32,13 +32,9 @@ module Muxie
     end
 
     def accept(visitor)
-      visitor.visit_pane(self)
-
       @panes.each do |pane|
         pane.accept(visitor)
       end
-
-      visitor.leave_pane(self)
     end
   end
 end

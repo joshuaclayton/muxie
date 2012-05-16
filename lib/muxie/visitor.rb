@@ -13,15 +13,6 @@ module Muxie
       @commands.reject(&:nil?)
     end
 
-    def visit_pane(pane)
-    end
-
-    def leave_pane(pane)
-    end
-
-    def visit_window_pane(pane)
-    end
-
     def leave_window_pane(pane)
     end
 

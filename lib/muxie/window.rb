@@ -1,6 +1,7 @@
 module Muxie
   class Window
     attr_reader :commands
+    delegate :vpane, :hpane, to: :@pane
 
     def initialize(name, &block)
       @name = name
@@ -24,8 +25,6 @@ module Muxie
     def root(path)
       @root = path
     end
-
-    delegate :vpane, :hpane, to: :@pane
 
     private
 
