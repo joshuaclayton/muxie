@@ -1,5 +1,7 @@
 module Muxie
   class Visitor
+    attr_reader :current_index
+
     def initialize
       @commands = []
       @current_index = 0

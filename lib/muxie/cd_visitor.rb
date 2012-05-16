@@ -22,7 +22,7 @@ module Muxie
     end
 
     def leave_window_pane(pane)
-      (0..@current_index).each do |index|
+      (0..current_index).each do |index|
         add_command %{tmux send-keys -t #{index} "cd #{@path}" C-m}
       end
     end

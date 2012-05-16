@@ -8,7 +8,7 @@ module Muxie
       end
 
       if pane.has_command?
-        add_command %{tmux send-keys -t #{@current_index} "#{pane.command}" C-m}
+        add_command %{tmux send-keys -t #{current_index} "#{pane.command}" C-m}
       end
 
       increment_calls
@@ -22,7 +22,7 @@ module Muxie
       end
 
       if pane.has_command?
-        add_command %{tmux send-keys -t #{@current_index} "#{pane.command}" C-m}
+        add_command %{tmux send-keys -t #{current_index} "#{pane.command}" C-m}
       end
 
       increment_calls
