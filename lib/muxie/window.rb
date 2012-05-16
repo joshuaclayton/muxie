@@ -12,19 +12,11 @@ module Muxie
 
     def compile
       instance_exec(&@block)
-      @commands << "tmux new-window -n #{@name}"
 
-      split_visitor = SplitVisitor.new
-      @pane.accept(split_visitor)
-      @commands += split_visitor.commands
-
-      cd_visitor = CdVisitor.new(@root)
-      @pane.accept(cd_visitor)
-      @commands += cd_visitor.commands
-
-      run_command_visitor = RunCommandVisitor.new
-      @pane.accept(run_command_visitor)
-      @commands += run_command_visitor.commands
+      generate_command_for_new_window
+      generate_commands_for_splits
+      generate_commands_for_cd
+      generate_commands_for_panes
 
       self
     end
@@ -34,5 +26,32 @@ module Muxie
     end
 
     delegate :vpane, :hpane, to: :@pane
+
+    private
+
+    def generate_command_for_new_window
+      @commands << "tmux new-window -n #{@name}"
+    end
+
+    def generate_commands_for_splits
+      SplitVisitor.new.tap do |split_visitor|
+        @pane.accept(split_visitor)
+        @commands += split_visitor.commands
+      end
+    end
+
+    def generate_commands_for_cd
+      CdVisitor.new(@root).tap do |cd_visitor|
+        @pane.accept(cd_visitor)
+        @commands += cd_visitor.commands
+      end
+    end
+
+    def generate_commands_for_panes
+      RunCommandVisitor.new.tap do |run_command_visitor|
+        @pane.accept(run_command_visitor)
+        @commands += run_command_visitor.commands
+      end
+    end
   end
 end

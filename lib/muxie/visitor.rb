@@ -1,5 +1,5 @@
 module Muxie
-  class Visitor < BasicObject
+  class Visitor
     def initialize
       @commands = []
       @current_index = 0
