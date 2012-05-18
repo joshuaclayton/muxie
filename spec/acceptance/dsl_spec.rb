@@ -5,8 +5,9 @@ describe "muxie DSL" do
 
     commands = [
       %{tmux new-window -n AppName},
-      %{tmux split-window -p25 -t0},
-      %{tmux split-window -p25 -t1 -dh},
+      %{tmux split-window -p25},
+      %{tmux select-pane -t1},
+      %{tmux split-window -p25 -dh},
       %{tmux select-pane -t2},
       %{tmux split-window -p50},
       %{tmux select-pane -t0},
