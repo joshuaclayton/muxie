@@ -1,12 +1,8 @@
 module Muxie
   class Pane
-    @@base_id = -1
-
-    attr_reader :id, :panes, :command, :percent
+    attr_reader :panes, :command, :percent
 
     def initialize(percent, command)
-      @id = @@base_id
-      @@base_id += 1
       @percent = percent
       @command = command
       @panes = []
