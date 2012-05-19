@@ -5,10 +5,8 @@ module Muxie
 
     def initialize(name, &block)
       @name = name
-      @pane = WindowPane.new(Pane.new(100, NullCommand.new))
-      @root = nil
       @block = block
-      @commands = []
+      reset
     end
 
     def compile
@@ -24,6 +22,11 @@ module Muxie
 
     def root(path)
       @root = path
+      pane.root = @root
+    end
+
+    def pane
+      @pane ||= WindowPane.new(Pane.new(100, NullCommand.new))
     end
 
     private
@@ -33,24 +36,21 @@ module Muxie
     end
 
     def generate_commands_for_splits
-      SplitVisitor.new.tap do |split_visitor|
-        @pane.accept(split_visitor)
-        @commands += split_visitor.commands
-      end
+      @commands += @pane.split_commands
     end
 
     def generate_commands_for_cd
-      CdVisitor.new(@root).tap do |cd_visitor|
-        @pane.accept(cd_visitor)
-        @commands += cd_visitor.commands
-      end
+      @commands += @pane.cd_commands
     end
 
     def generate_commands_for_panes
-      RunCommandVisitor.new.tap do |run_command_visitor|
-        @pane.accept(run_command_visitor)
-        @commands += run_command_visitor.commands
-      end
+      @commands += @pane.run_commands
+    end
+
+    def reset
+      @pane = nil
+      @root = nil
+      @commands = []
     end
   end
 end

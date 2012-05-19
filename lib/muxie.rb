@@ -9,10 +9,7 @@ require 'muxie/vertical_pane'
 require 'muxie/horizontal_pane'
 require 'muxie/pane'
 require 'muxie/null_command'
-require 'muxie/visitor'
-require 'muxie/split_visitor'
-require 'muxie/cd_visitor'
-require 'muxie/run_command_visitor'
+require 'muxie/null_pane'
 
 module Muxie
   def self.run(&block)

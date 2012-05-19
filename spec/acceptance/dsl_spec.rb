@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe "muxie DSL" do
   it "generates the correct commands" do
-
     commands = [
       %{tmux new-window -n AppName},
       %{tmux split-window -p25},
@@ -11,13 +10,13 @@ describe "muxie DSL" do
       %{tmux select-pane -t2},
       %{tmux split-window -p50},
       %{tmux select-pane -t0},
-      %{tmux send-keys -t 0 "cd ~/dev/thoughtbot/app" C-m},
-      %{tmux send-keys -t 1 "cd ~/dev/thoughtbot/app" C-m},
-      %{tmux send-keys -t 2 "cd ~/dev/thoughtbot/app" C-m},
-      %{tmux send-keys -t 3 "cd ~/dev/thoughtbot/app" C-m},
-      %{tmux send-keys -t 0 "vim ." C-m},
-      %{tmux send-keys -t 2 "guard" C-m},
-      %{tmux send-keys -t 3 "evergreen serve" C-m}
+      %{tmux send-keys -t0 "cd ~/dev/thoughtbot/app" C-m},
+      %{tmux send-keys -t1 "cd ~/dev/thoughtbot/app" C-m},
+      %{tmux send-keys -t2 "cd ~/dev/thoughtbot/app" C-m},
+      %{tmux send-keys -t3 "cd ~/dev/thoughtbot/app" C-m},
+      %{tmux send-keys -t0 "vim ." C-m},
+      %{tmux send-keys -t2 "guard" C-m},
+      %{tmux send-keys -t3 "evergreen serve" C-m}
     ]
 
     Muxie.run do
@@ -46,13 +45,13 @@ describe "muxie DSL" do
       %{tmux select-pane -t2},
       %{tmux split-window -p50},
       %{tmux select-pane -t0},
-      %{tmux send-keys -t 0 "cd ~/dev/thoughtbot/app" C-m},
-      %{tmux send-keys -t 1 "cd ~/dev/thoughtbot/app" C-m},
-      %{tmux send-keys -t 2 "cd ~/dev/thoughtbot/app" C-m},
-      %{tmux send-keys -t 3 "cd ~/dev/thoughtbot/app" C-m},
-      %{tmux send-keys -t 4 "cd ~/dev/thoughtbot/app" C-m},
-      %{tmux send-keys -t 0 "vim ." C-m},
-      %{tmux send-keys -t 1 "tail -f log/test.log" C-m},
+      %{tmux send-keys -t0 "cd ~/dev/thoughtbot/app" C-m},
+      %{tmux send-keys -t1 "cd ~/dev/thoughtbot/app" C-m},
+      %{tmux send-keys -t2 "cd ~/dev/thoughtbot/app" C-m},
+      %{tmux send-keys -t3 "cd ~/dev/thoughtbot/app" C-m},
+      %{tmux send-keys -t4 "cd ~/dev/thoughtbot/app" C-m},
+      %{tmux send-keys -t0 "vim ." C-m},
+      %{tmux send-keys -t1 "tail -f log/test.log" C-m},
     ]
 
     Muxie.run do

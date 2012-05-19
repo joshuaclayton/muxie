@@ -1,13 +1,20 @@
 module Muxie
   class HorizontalPane < BasicDecorator::Decorator
-    def accept(visitor)
-      visitor.visit_horizontal_pane(self)
-      @component.accept(visitor)
-    end
-
     def run(&block)
       @component.run(&block)
       self
+    end
+
+    def hpane(*args)
+      raise ArgumentError, "cannot nest horizontal pane within another horizontal pane"
+    end
+
+    def horizontal?
+      true
+    end
+
+    def vertical?
+      false
     end
   end
 end
