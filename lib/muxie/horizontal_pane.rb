@@ -12,10 +12,5 @@ module Muxie
     def horizontal?
       true
     end
-
-    def vertical?
-      false
-    end
   end
 end
-

@@ -8,8 +8,9 @@ require 'muxie/window_pane'
 require 'muxie/vertical_pane'
 require 'muxie/horizontal_pane'
 require 'muxie/pane'
+require 'muxie/pane_collection'
 require 'muxie/null_command'
-require 'muxie/null_pane'
+require 'muxie/splitter'
 
 module Muxie
   def self.run(&block)

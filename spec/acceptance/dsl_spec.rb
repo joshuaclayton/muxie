@@ -5,10 +5,13 @@ describe "muxie DSL" do
     commands = [
       %{tmux new-window -n AppName},
       %{tmux split-window -p25},
+      %{tmux select-pane -t0},
       %{tmux select-pane -t1},
       %{tmux split-window -p25 -dh},
+      %{tmux select-pane -t1},
       %{tmux select-pane -t2},
       %{tmux split-window -p50},
+      %{tmux select-pane -t2},
       %{tmux select-pane -t0},
       %{tmux send-keys -t0 "cd ~/dev/thoughtbot/app" C-m},
       %{tmux send-keys -t1 "cd ~/dev/thoughtbot/app" C-m},
@@ -39,11 +42,14 @@ describe "muxie DSL" do
     commands = [
       %{tmux new-window -n AppName},
       %{tmux split-window -p34 -dh},
+      %{tmux select-pane -t0},
       %{tmux split-window -p50 -dh},
+      %{tmux select-pane -t0},
       %{tmux select-pane -t2},
       %{tmux split-window -p34},
       %{tmux select-pane -t2},
       %{tmux split-window -p50},
+      %{tmux select-pane -t2},
       %{tmux select-pane -t0},
       %{tmux send-keys -t0 "cd ~/dev/thoughtbot/app" C-m},
       %{tmux send-keys -t1 "cd ~/dev/thoughtbot/app" C-m},
@@ -54,16 +60,18 @@ describe "muxie DSL" do
       %{tmux send-keys -t1 "tail -f log/test.log" C-m},
     ]
 
+    # `#{commands.join(" && ")}`
+
     Muxie.run do
       window "AppName" do
         root "~/dev/thoughtbot/app"
 
-        vpane 34, "vim ."
-        vpane 33, "tail -f log/test.log"
-        vpane 33 do
-          hpane 34
-          hpane 33
-          hpane 33
+        hpane 34, "vim ."
+        hpane 33, "tail -f log/test.log"
+        hpane 33 do
+          vpane 34
+          vpane 33
+          vpane 33
         end
       end
     end.commands.should == commands

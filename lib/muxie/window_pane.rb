@@ -8,7 +8,10 @@ module Muxie
     end
 
     def split_commands
-      []
+      result = []
+      result += splits
+      result << %{tmux select-pane -t0}
+      result
     end
 
     def run_commands
@@ -16,14 +19,6 @@ module Muxie
         pane.has_command?
       end.map do |pane|
         %{tmux send-keys -t#{pane.index} "#{pane.command}" C-m}
-      end
-    end
-
-    def indexed_panes
-      available_panes.tap do |children|
-        children.each_with_index do |child, index|
-          child.index = index
-        end
       end
     end
 
@@ -35,10 +30,23 @@ module Muxie
 
     private
 
-    def available_panes
-      all_children.select do |child|
-        child.children.none?
+    def splits(base = children, start_index = 0)
+      result = []
+      direction = base.horizontal? ? " -dh" : ""
+
+      base.split_percentages.each do |dimension|
+        result << %{tmux split-window -p#{dimension}#{direction}}
+        result << %{tmux select-pane -t#{start_index}}
       end
+
+      base.each_with_index do |pane, index|
+        if pane.children.any?
+          result << %{tmux select-pane -t#{start_index + index}}
+          result += splits(pane.children, start_index + index)
+        end
+      end
+
+      result
     end
   end
 end
