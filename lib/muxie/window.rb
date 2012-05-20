@@ -1,7 +1,7 @@
 module Muxie
   class Window
     attr_reader :commands
-    delegate :vpane, :hpane, to: :@pane
+    delegate :vpane, :hpane, to: :pane
 
     def initialize(name, &block)
       @name = name
@@ -36,15 +36,15 @@ module Muxie
     end
 
     def generate_commands_for_splits
-      @commands += @pane.split_commands
+      @commands += pane.split_commands
     end
 
     def generate_commands_for_cd
-      @commands += @pane.cd_commands
+      @commands += pane.cd_commands
     end
 
     def generate_commands_for_panes
-      @commands += @pane.run_commands
+      @commands += pane.run_commands
     end
 
     def reset

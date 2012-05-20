@@ -2,11 +2,6 @@ module Muxie
   class WindowPane < BasicDecorator::Decorator
     attr_accessor :root
 
-    def run(&block)
-      @component.run(&block)
-      self
-    end
-
     def split_commands
       result = []
       result += splits

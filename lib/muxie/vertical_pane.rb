@@ -5,10 +5,6 @@ module Muxie
       self
     end
 
-    def vpane(*args)
-      raise ArgumentError, "cannot nest vertical pane within another vertical pane"
-    end
-
     def horizontal?
       false
     end
