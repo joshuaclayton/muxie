@@ -40,7 +40,7 @@ module Muxie
     private
 
     def first_pane
-      @panes.first || NullPane.new
+      @panes.first
     end
 
     def without_children
