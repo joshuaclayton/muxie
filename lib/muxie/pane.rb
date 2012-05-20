@@ -2,7 +2,7 @@ module Muxie
   class Pane
     attr_accessor :index
     attr_reader :children, :command, :percent
-    delegate :all_children, :indexed_panes, :split_percentages, to: :@children
+    delegate :all_children, :indexed_panes, :split_percentages, :panes_with_commands, to: :@children
 
     def initialize(percent, command)
       @percent = percent

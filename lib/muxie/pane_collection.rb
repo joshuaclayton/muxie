@@ -29,6 +29,10 @@ module Muxie
       end.flatten
     end
 
+    def panes_with_commands
+      indexed_panes.select(&:has_command?)
+    end
+
     def indexed_panes
       without_children.tap do |children|
         children.each_with_index do |child, index|

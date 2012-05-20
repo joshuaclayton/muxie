@@ -10,9 +10,7 @@ module Muxie
     end
 
     def run_commands
-      indexed_panes.select do |pane|
-        pane.has_command?
-      end.map do |pane|
+      panes_with_commands.map do |pane|
         %{tmux send-keys -t#{pane.index} "#{pane.command}" C-m}
       end
     end
